@@ -101,9 +101,6 @@ class User extends ActiveRecord implements IdentityInterface
      * @param  string  $password password to validate
      * @return boolean if password provided is valid for current user
      */
-//    public function validatePassword($password) {
-//        return $this->password === $password;
-//    }
     
      public function validatePassword($password)
     {
@@ -177,6 +174,11 @@ class User extends ActiveRecord implements IdentityInterface
         $parts = explode('_', $token);
         $timestamp = (int) end($parts);
         return $timestamp + $expire >= time();
+    }
+
+    public function getComments()
+    {
+        return $this->hasMany(Comments::className(), ['user_id' => 'id']);
     }
 
 }
